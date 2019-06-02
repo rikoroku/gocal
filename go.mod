@@ -8,4 +8,7 @@ require (
 	github.com/mattn/go-colorable v0.1.2 // indirect
 	github.com/mkideal/cli v0.0.3
 	github.com/mkideal/pkg v0.0.0-20170503154153-3e188c9e7ecc
+	golang.org/x/net v0.0.0-20190522155817-f3200d17e092
+	golang.org/x/oauth2 v0.0.0-20190523182746-aaccbc9213b0
+	google.golang.org/api v0.5.0
 )
