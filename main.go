@@ -36,6 +36,7 @@ var root = &cli.Command{
 func main() {
 	if err := cli.Root(root,
 		cli.Tree(help),
+		cli.Tree(commands.Setup),
 		cli.Tree(commands.List),
 		cli.Tree(commands.Insert),
 		cli.Tree(commands.Delete),
