@@ -23,7 +23,12 @@ func (r *rootT) AutoHelp() bool {
 var root = &cli.Command{
 	Desc: "\nGoedule is a schedule management tool of Google Calendar",
 	Argv: func() interface{} { return new(rootT) },
-	Fn: func(_ *cli.Context) error {
+	Fn: func(ctx *cli.Context) error {
+		argv := ctx.Argv().(*rootT)
+		if argv.Version {
+			ctx.String("%v\n", appVersion)
+			return nil
+		}
 		return nil
 	},
 }
