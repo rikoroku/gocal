@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	. "Goedule/commands"
+	"Goedule/commands"
 
 	"github.com/mkideal/cli"
 )
@@ -36,9 +36,9 @@ var root = &cli.Command{
 func main() {
 	if err := cli.Root(root,
 		cli.Tree(help),
-		cli.Tree(List),
-		cli.Tree(Insert),
-		cli.Tree(Delete),
+		cli.Tree(commands.List),
+		cli.Tree(commands.Insert),
+		cli.Tree(commands.Delete),
 	).Run(os.Args[1:]); err != nil {
 		fmt.Fprintln(os.Stderr, err)
 		os.Exit(1)
