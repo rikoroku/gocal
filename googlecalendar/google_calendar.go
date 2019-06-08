@@ -1,6 +1,7 @@
 package googlecalendar
 
 import (
+	"Goedule/utils"
 	"context"
 	"encoding/json"
 	"fmt"
@@ -25,6 +26,23 @@ func Setup() {
 
 	tok = getTokenFromWeb(config)
 	saveToken(tokFile, tok)
+}
+
+func GetEvents() *calendar.Events {
+	srv := getService()
+
+	start := utils.StartTimeWithFormatRFC3339()
+	end := utils.EndTimeWithFormatRFC3339()
+
+	events, err := srv.Events.List("primary").ShowDeleted(false).
+		SingleEvents(true).TimeMin(start).TimeMax(end).MaxResults(100).OrderBy("startTime").Do()
+	if err != nil {
+		log.Fatalf("Unable to retrieve next ten of the user's events: %v", err)
+	}
+	if len(events.Items) == 0 {
+		log.Fatalf("No today's events found.")
+	}
+	return events
 }
 
 func getConfig() *oauth2.Config {
