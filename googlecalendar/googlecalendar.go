@@ -37,7 +37,7 @@ func GetEvents() *calendar.Events {
 	events, err := srv.Events.List("primary").ShowDeleted(false).
 		SingleEvents(true).TimeMin(start).TimeMax(end).MaxResults(100).OrderBy("startTime").Do()
 	if err != nil {
-		log.Fatalf("Unable to retrieve next ten of the user's events: %v", err)
+		log.Fatalf("Unable to retrieve today's user's events: %v", err)
 	}
 	if len(events.Items) == 0 {
 		log.Fatalf("No today's events found.")
