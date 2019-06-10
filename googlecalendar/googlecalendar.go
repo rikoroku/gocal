@@ -8,6 +8,7 @@ import (
 	"io/ioutil"
 	"log"
 	"os"
+	"time"
 
 	"golang.org/x/oauth2"
 	"golang.org/x/oauth2/google"
@@ -31,8 +32,8 @@ func Setup() {
 func GetEvents() *calendar.Events {
 	srv := getService()
 
-	start := utils.StartTimeWithFormatRFC3339()
-	end := utils.EndTimeWithFormatRFC3339()
+	start := utils.AM00_00().Format(time.RFC3339)
+	end := utils.FM23_59().Format(time.RFC3339)
 
 	events, err := srv.Events.List("primary").ShowDeleted(false).
 		SingleEvents(true).TimeMin(start).TimeMax(end).MaxResults(100).OrderBy("startTime").Do()
