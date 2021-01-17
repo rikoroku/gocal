@@ -1,6 +1,8 @@
 package cmd
 
 import (
+	"gocal/googlecalendar"
+
 	"github.com/spf13/cobra"
 )
 
@@ -13,7 +15,6 @@ var rootCmd = &cobra.Command{
 }
 
 func Execute() error {
+	rootCmd.AddCommand(agendaCmd(googlecalendar.NewService()))
 	return rootCmd.Execute()
 }
-
-func init() {}
