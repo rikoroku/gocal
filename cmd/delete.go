@@ -1,4 +1,4 @@
-package commands
+package cmd
 
 import "github.com/mkideal/cli"
 

@@ -1,10 +1,10 @@
 package googlecalendar
 
 import (
-	"Goedule/utils"
 	"context"
 	"encoding/json"
 	"fmt"
+	"gocal/utils"
 	"io/ioutil"
 	"log"
 	"os"

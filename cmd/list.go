@@ -1,8 +1,8 @@
-package commands
+package cmd
 
 import (
-	"Goedule/googlecalendar"
 	"fmt"
+	"gocal/googlecalendar"
 
 	"github.com/mkideal/cli"
 )
