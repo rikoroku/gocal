@@ -2,6 +2,7 @@ package models
 
 import "google.golang.org/api/calendar/v3"
 
+// Event is ...
 type Event struct {
 	ID          string                  `json:"id,omitempty"`
 	Summary     string                  `json:"summary,omitempty"`

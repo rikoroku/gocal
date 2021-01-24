@@ -15,6 +15,7 @@ import (
 
 const tokFile = "token.json"
 
+// Setup is ...
 func Setup() {
 	tok, _ := tokenFromTokFile()
 	if tok != nil {

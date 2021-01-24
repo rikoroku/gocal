@@ -10,6 +10,7 @@ import (
 	"google.golang.org/api/calendar/v3"
 )
 
+// Service is ...
 type Service interface {
 	GetEvents(fromDate, toDate time.Time) []*models.Event
 }
@@ -18,6 +19,7 @@ type calendarService struct {
 	service *calendar.Service
 }
 
+// NewService is ...
 func NewService() Service {
 	tok, err := tokenFromTokFile()
 	if err != nil {

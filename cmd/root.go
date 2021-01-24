@@ -14,6 +14,7 @@ var rootCmd = &cobra.Command{
 	},
 }
 
+// Execute is ...
 func Execute() error {
 	rootCmd.AddCommand(agendaCmd(googlecalendar.NewService()))
 	return rootCmd.Execute()
