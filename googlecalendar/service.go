@@ -11,7 +11,7 @@ import (
 )
 
 type Service interface {
-	GetEvents() []*models.Event
+	GetEvents(fromDate, toDate time.Time) []*models.Event
 }
 
 type calendarService struct {
@@ -36,13 +36,8 @@ func NewService() Service {
 	}
 }
 
-func (cs *calendarService) GetEvents() []*models.Event {
-	t := time.Now()
-	timezone, _ := time.LoadLocation("Local")
-	start := time.Date(t.Year(), t.Month(), t.Day(), 0, 0, 0, 0, timezone).Format(time.RFC3339)
-	end := time.Date(t.Year(), t.Month(), t.Day(), 23, 59, 59, 59, timezone).Format(time.RFC3339)
-
-	fetchedEvents, err := cs.service.Events.List("primary").SingleEvents(true).TimeMin(start).TimeMax(end).Do()
+func (cs *calendarService) GetEvents(fromDate, toDate time.Time) []*models.Event {
+	fetchedEvents, err := cs.service.Events.List("primary").SingleEvents(true).TimeMin(fromDate.Format(time.RFC3339)).TimeMax(toDate.Format(time.RFC3339)).Do()
 	if err != nil {
 		log.Fatalf("Unable to retrieve today's user's events: %v", err)
 	}

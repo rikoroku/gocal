@@ -5,11 +5,12 @@ import (
 	"gocal/models"
 	"io/ioutil"
 	"testing"
+	"time"
 )
 
 type googlecalendarServiceMock struct{}
 
-func (gs googlecalendarServiceMock) GetEvents() []*models.Event {
+func (gs googlecalendarServiceMock) GetEvents(fromDate, toDate time.Time) []*models.Event {
 	return []*models.Event{{ID: "1"}}
 }
 
