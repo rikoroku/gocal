@@ -41,23 +41,33 @@ func NewService() Service {
 func (cs *calendarService) GetEvents(fromDate, toDate time.Time) []*models.Event {
 	fetchedEvents, err := cs.service.Events.List("primary").SingleEvents(true).TimeMin(fromDate.Format(time.RFC3339)).TimeMax(toDate.Format(time.RFC3339)).Do()
 	if err != nil {
-		log.Fatalf("Unable to retrieve today's user's events: %v", err)
+		log.Fatalf("Unable to retrieve events: %v", err)
 	}
 	if len(fetchedEvents.Items) == 0 {
-		log.Fatalf("No today's events found.")
+		log.Fatalf("No events found.")
 	}
 
 	var events []*models.Event
 	for _, item := range fetchedEvents.Items {
-		var event models.Event
-		byte, _ := item.MarshalJSON()
-		err := json.Unmarshal(byte, &event)
+		event, err := calendarEventToEvent(item)
 		if err != nil {
 			log.Fatalf("An unexpected error has occurred: %v", err)
 		}
-		events = append(events, &event)
+		events = append(events, event)
 	}
-	// TODO: events(*calendar.Events) must be converted into models.Event
 
 	return events
+}
+
+func calendarEventToEvent(calendarEvent *calendar.Event) (*models.Event, error) {
+	var event models.Event
+	byte, err := calendarEvent.MarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	err = json.Unmarshal(byte, &event)
+	if err != nil {
+		return nil, err
+	}
+	return &event, nil
 }
